@@ -4,11 +4,14 @@ a way to share laravel session with node. please feel free to make PR's with add
 # What it does
 This is a simple utility which helps you obtain the laravel session key.  You pass in your laravel key, as well as your laravel_session found in your cookie and we return a key that helps you find the session details.
 
-# Getting Redis Session
-Included is a function to retrieve the session in the case you use redis as your session driver.  It gets the information stored in 'laravel:' + SessionKey;
+# API
+```
+getSessionKey(laravel_session, laravelAppKey): returns laravel session key such as 'ffdbeaac243c2d691d64084710d428d575c07007'
 
-# Getting Database Session
-In the case that the driver is mysql you will need to find the record in the session table where id matches the laravel session key.  other database drivers should follow similar methods.
+getSessionFromRedis(laravelSessionKey, redisConnection): returns a promise that resolves with the session object
+
+getSessionFromMysql(laravelSessionKey, mySqlConnection [, databaseTable]): returns a promise that resolves with the session object
+```
 
 # Usage
 
@@ -26,7 +29,7 @@ let session = cookie.parse(req.headers.cookie).laravel_session;
 Then just find the key by calling the function 'getSessionKey'
 
 ``` js
-let sessionKey = laravelSession(session, appKey);
+let sessionKey = laravelSession.getSessionKey(session, appKey);
 ```
 
 Get your complete laravel session. Redis example
