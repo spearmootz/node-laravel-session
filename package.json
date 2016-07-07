@@ -1,0 +1,24 @@
+{
+  "name": "node-laravel-session",
+  "version": "1.0.0",
+  "description": "Tool in order to share sessions between node and laravel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "laravel",
+    "node",
+    "session",
+    "authentication",
+    "socket",
+    "redis",
+    "share"
+  ],
+  "author": "Ricardo Spear",
+  "license": "MIT",
+  "dependencies": {
+    "php-serialization": "0.0.4",
+    "php-unserialize": "0.0.1"
+  }
+}
