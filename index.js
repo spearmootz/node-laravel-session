@@ -1,10 +1,26 @@
 'use strict';
 
-let unserialize = require('php-unserialize').unserialize;
-let unserialize2 = require('php-serialization').unserialize;
-let crypto = require('crypto');
+const unserialize = require('php-unserialize').unserialize;
+const unserialize2 = require('php-serialization').unserialize;
+const crypto = require('crypto');
+const fs = require('fs');
 
 module.exports = {
+    getAppKey: function (filepath) {
+        return new Promise(function (resolve, reject) {
+            fs.readFile(filepath, 'utf8', function (err, data) {
+                if (err != null) return reject(err);
+
+                let key = data.match(/APP_KEY.*/g);
+
+                if (key.length == 0) reject('APP_KEY not found');
+                key = key[0];
+                key = key.split('=')[1].trim();
+
+                return resolve(key.replace('base64:', ''));
+            });
+        });
+    },
     getSessionKey: function (laravelSession, laravelKey) {
         //Get session object
         laravelSession = new Buffer(laravelSession, 'base64');

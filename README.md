@@ -6,6 +6,8 @@ This is a simple utility which helps you obtain the laravel session key.  You pa
 
 # API
 ```
+getAppKey(pathToEnvFile): resolves APP_KEY found in .env without 'base64:'
+
 getSessionKey(laravel_session, laravelAppKey): returns laravel session key such as 'ffdbeaac243c2d691d64084710d428d575c07007'
 
 getSessionFromRedis(laravelSessionKey, redisConnection): returns a promise that resolves with the session object
@@ -17,13 +19,19 @@ getSessionFromMysql(laravelSessionKey, mySqlConnection [, databaseTable]): retur
 
 `let laravelSession = require('node-laravel-session');`
 
-Get your app key, for example "MES4V4nAY+eLns059EwEXaXbCB2YKLHCP6bA7tc54KI=" by pasting it or by parsing the laravel .env file with a regex to obtain it. DO NOT INCLUDE "Base64:".
+
 
 Get your laravel_session from the cookie. for example:
 
 ``` js
 let cookie = require('cookie');
 let session = cookie.parse(req.headers.cookie).laravel_session;
+```
+
+Get your app key, for example "MES4V4nAY+eLns059EwEXaXbCB2YKLHCP6bA7tc54KI=" by pasting it or by parsing the laravel .env file with a regex to obtain it. DO NOT INCLUDE "Base64:". or use the provided function function.
+
+``` js
+let appKey = laravelSession.getAppKey('path/to/your/.env');
 ```
 
 Then just find the key by calling the function 'getSessionKey'
