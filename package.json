@@ -1,6 +1,6 @@
 {
   "name": "node-laravel-session",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tool in order to share sessions between node and laravel",
   "main": "index.js",
   "scripts": {

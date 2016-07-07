@@ -34,5 +34,18 @@ module.exports = {
                 })
                 .catch(reject);
         });
+    },
+    getSessionFromMysql: function (laravelSessionKey, mySqlConnection, databaseTable) {
+        return new Promise(function (resolve, reject) {
+            databaseTable = databaseTable || 'sessions';
+
+            mySqlConnection.query('select payload from ' + databaseTable + ' where id = "' + laravelSessionKey + '"', function (err, rows, fields) {
+                if (err != null) return reject(err);
+                if (rows.length == 0) reject('Session not found');
+                let session = new Buffer(rows[0].payload, 'base64').toString();
+
+                return resolve(unserialize(session));
+            });
+        });
     }
 };
