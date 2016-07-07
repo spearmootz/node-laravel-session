@@ -31,7 +31,10 @@ let session = cookie.parse(req.headers.cookie).laravel_session;
 Get your app key, for example "MES4V4nAY+eLns059EwEXaXbCB2YKLHCP6bA7tc54KI=" by pasting it or by parsing the laravel .env file with a regex to obtain it. DO NOT INCLUDE "Base64:". or use the provided function function.
 
 ``` js
-let appKey = laravelSession.getAppKey('path/to/your/.env');
+laravelSession.getAppKey('path/to/your/.env')
+        .then((appKey) => {
+            // continue
+        });
 ```
 
 Then just find the key by calling the function 'getSessionKey'
@@ -43,6 +46,8 @@ let sessionKey = laravelSession.getSessionKey(session, appKey);
 Get your complete laravel session. Redis example
 
 ``` js
-laravelSession.getSessionFromRedis(sessionKey, redisCon)
-  .then((session) => { console.log('here is the full session:' + session);});
+laravelSession.getSessionFromMysql(sessionKey, mySqlConnection)
+  .then((session) => {
+      console.log('here is the full session:' + session);
+  });
 ```
