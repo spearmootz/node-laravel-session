@@ -17,6 +17,10 @@
   ],
   "author": "Ricardo Spear",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/spearmootz/node-laravel-session.git"
+  },
   "dependencies": {
     "php-serialization": "0.0.4",
     "php-unserialize": "0.0.1"
