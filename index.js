@@ -45,7 +45,9 @@ module.exports = {
     getSessionFromRedis: function (laravelSessionKey, redisConnection) {
         return new Promise(function (resolve, reject) {
             redisConnection.get('laravel:' + laravelSessionKey)
-                .then(function (value) {
+                .then(function (err, value) {
+                    if (err != null) return reject(err);
+
                     return resolve(unserialize2(unserialize2(value)).node);
                 })
                 .catch(reject);
