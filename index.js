@@ -44,13 +44,11 @@ module.exports = {
     },
     getSessionFromRedis: function (laravelSessionKey, redisConnection) {
         return new Promise(function (resolve, reject) {
-            redisConnection.get('laravel:' + laravelSessionKey)
-                .then(function (err, value) {
-                    if (err != null) return reject(err);
+            redisConnection.get('laravel:' + laravelSessionKey, function (err, value) {
+                if (err != null) return reject(err);
 
-                    return resolve(unserialize2(unserialize2(value)).node);
-                })
-                .catch(reject);
+                return resolve(unserialize2(unserialize2(value)));
+            });
         });
     },
     getSessionFromMysql: function (laravelSessionKey, mySqlConnection, databaseTable) {
