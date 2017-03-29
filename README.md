@@ -13,6 +13,8 @@ getSessionKey(laravel_session, laravelAppKey): returns laravel session key such 
 getSessionFromRedis(laravelSessionKey, redisConnection): returns a promise that resolves with the session object
 
 getSessionFromMysql(laravelSessionKey, mySqlConnection [, databaseTable]): returns a promise that resolves with the session object
+
+getSessionFromFile(laravelSessionKey, sessionFilePath): returns a promise that resolves with session object
 ```
 
 # Usage
