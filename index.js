@@ -21,26 +21,38 @@ module.exports = {
             });
         });
     },
-    getSessionKey: function (laravelSession, laravelKey) {
+    getSessionKey: function (laravelSession, laravelKey, keyLength) {
+        keyLength = keyLength || 16;
+        let cypher = 'aes-' + keyLength * 8 + '-cbc';
+
         //Get session object
         laravelSession = new Buffer(laravelSession, 'base64');
         laravelSession = laravelSession.toString();
         laravelSession = JSON.parse(laravelSession);
 
         //Create key buffer
-        laravelKey = new Buffer(laravelKey, 'base64');
+        laravelKey = new Buffer(String(laravelKey + Array(keyLength).join('\0')).substr(0, keyLength));
 
         //crypto required iv in binary or buffer
         laravelSession.iv = new Buffer(laravelSession.iv, 'base64');
 
         //create decoder
-        let decoder = crypto.createDecipheriv('aes-256-cbc', laravelKey, laravelSession.iv);
+        let decoder = crypto.createDecipheriv(cypher, laravelKey, laravelSession.iv);
 
         //add data to decoder and return decoded
         let decoded = decoder.update(laravelSession.value, 'base64');
 
         //unserialize
         return unserialize(decoded);
+    },
+    getSessionFromFile: function (laravelSessionKey, filePath) {
+        return new Promise(function (resolve, reject) {
+            fs.readFile(filePath + '/' + laravelSessionKey, 'utf8', function (err, data) {
+                if (err != null) return reject(err);
+
+                return resolve(unserialize2(data));
+            });
+        });
     },
     getSessionFromRedis: function (laravelSessionKey, redisConnection) {
         return new Promise(function (resolve, reject) {
@@ -63,5 +75,17 @@ module.exports = {
                 return resolve(unserialize(session));
             });
         });
+    },
+    getUserIdFromSession: function (session) {
+        var cookieKey = 'login_82e5d2c56bdd0811318f0cf078b78bfc';
+        if (session.hasOwnProperty(cookieKey)) {
+            return session[cookieKey];
+        }
+        for (var key in session) {
+            var matches = key.match(/login_([a-zA-Z0-9]+)/gi);
+            if (matches && matches.length > 0) {
+                return session[matches[0]];
+            }
+        }
     }
 };
