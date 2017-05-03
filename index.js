@@ -31,7 +31,7 @@ module.exports = {
         laravelSession = JSON.parse(laravelSession);
 
         //Create key buffer
-        laravelKey = new Buffer(String(laravelKey + Array(keyLength).join('\0')).substr(0, keyLength));
+        laravelKey = new Buffer(laravelKey, 'base64');
 
         //crypto required iv in binary or buffer
         laravelSession.iv = new Buffer(laravelSession.iv, 'base64');
