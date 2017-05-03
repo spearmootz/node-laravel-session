@@ -8,7 +8,7 @@ This is a simple utility which helps you obtain the laravel session key.  You pa
 ```
 getAppKey(pathToEnvFile): resolves APP_KEY found in .env without 'base64:'
 
-getSessionKey(laravel_session, laravelAppKey): returns laravel session key such as 'ffdbeaac243c2d691d64084710d428d575c07007'
+getSessionKey(laravel_session, laravelAppKey, [optional keyLength]): returns laravel session key such as 'ffdbeaac243c2d691d64084710d428d575c07007'
 
 getSessionFromRedis(laravelSessionKey, redisConnection): returns a promise that resolves with the session object
 
