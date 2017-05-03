@@ -22,7 +22,7 @@ module.exports = {
         });
     },
     getSessionKey: function (laravelSession, laravelKey, keyLength) {
-        keyLength = keyLength || 16;
+        keyLength = keyLength || 32;
         let cypher = 'aes-' + keyLength * 8 + '-cbc';
 
         //Get session object
