@@ -82,7 +82,7 @@ module.exports = {
             return session[cookieKey];
         }
         for (var key in session) {
-            var matches = key.match(/login_([a-zA-Z0-9]+)/gi);
+            var matches = key.match(/login_(.*_)?([a-zA-Z0-9]+)/gi);
             if (matches && matches.length > 0) {
                 return session[matches[0]];
             }

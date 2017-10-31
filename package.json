@@ -1,6 +1,6 @@
 {
-  "name": "node-laravel-session",
-  "version": "1.0.10",
+  "name": "node-laravel-session-ahss-testing",
+  "version": "1.0.11",
   "description": "Tool in order to share sessions between node and laravel",
   "main": "index.js",
   "scripts": {
