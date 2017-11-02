@@ -13,7 +13,7 @@ module.exports = {
 
                 let key = data.match(/APP_KEY.*/g);
 
-                if (key.length == 0) reject('APP_KEY not found');
+                if (key.length == 0) return reject('APP_KEY not found');
                 key = key[0];
                 key = key.split('=')[1].trim();
 
@@ -69,7 +69,7 @@ module.exports = {
 
             mySqlConnection.query('select payload from ' + databaseTable + ' where id = "' + laravelSessionKey + '"', function (err, rows, fields) {
                 if (err != null) return reject(err);
-                if (rows.length == 0) reject('Session not found');
+                if (rows.length == 0) return reject('Session not found');
                 let session = new Buffer(rows[0].payload, 'base64').toString();
 
                 return resolve(unserialize(session));
