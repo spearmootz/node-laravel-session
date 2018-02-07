@@ -10,7 +10,7 @@ getAppKey(pathToEnvFile): resolves APP_KEY found in .env without 'base64:'
 
 getSessionKey(laravel_session, laravelAppKey, [optional keyLength]): returns laravel session key such as 'ffdbeaac243c2d691d64084710d428d575c07007'
 
-getSessionFromRedis(laravelSessionKey, redisConnection): returns a promise that resolves with the session object
+getSessionFromRedis(laravelSessionKey, redisConnection, [optional sessionPrefix='laravel_cache']): returns a promise that resolves with the session object. On laravel 5.4 or less, the sessionPrefix should be 'laravel'
 
 getSessionFromMysql(laravelSessionKey, mySqlConnection [, databaseTable]): returns a promise that resolves with the session object
 

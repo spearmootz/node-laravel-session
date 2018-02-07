@@ -54,9 +54,9 @@ module.exports = {
             });
         });
     },
-    getSessionFromRedis: function (laravelSessionKey, redisConnection) {
+    getSessionFromRedis: function (laravelSessionKey, redisConnection, sessionPrefix='laravel_cache') {
         return new Promise(function (resolve, reject) {
-            redisConnection.get('laravel:' + laravelSessionKey, function (err, value) {
+            redisConnection.get(sessionPrefix + ':' + laravelSessionKey, function (err, value) {
                 if (err != null) return reject(err);
 
                 return resolve(unserialize2(unserialize2(value)));
